@@ -1,0 +1,2 @@
+# javascript-php-mysql
+The file idex.html performs server-side validation, produces error messages. If true, adds an entry to the database with additional fields. The file print.php outputs all records from the database, performs filtering by date using DatePicker and sorting in ascending / descending order among the selected values or among the general list. Server-side validation, add a new data to the database, print all records from the database, filtering by date, sorting in ascending / descending order

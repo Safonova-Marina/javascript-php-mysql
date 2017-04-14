@@ -96,14 +96,15 @@
 		dateFormat: 'yy-mm-dd',
 		onSelect: function (date) {
 			var id = this.id;
-			if(id == 'date_from') date_start = date;
-			if(id == 'date_to') date_to = date;
+			if(id == 'date_from') $('#date_from').val(date);
+			if(id == 'date_to') $('#date_to').val(date);
 			$('#date_filter_show').removeAttr('disabled');
-
 		}
 	});
 	$('#date_filter_show').click(function(){
-		if (date_start == '') date_start = '2017-04-09';
+		date_start = $('#date_from').val();
+		date_to = $('#date_to').val();
+		if (date_start == '') date_start = '2017-04-01';
 		if (date_to == '') {
 			var new_date = new Date();
 			date_to = new_date.getFullYear() + '-' + (new_date.getMonth()<10? '0':'') + (new_date.getMonth()+1) + '-' + (new_date.getDate()<10? '0':'') + new_date.getDate();
@@ -113,6 +114,7 @@
 			date_start = date_to;
 			date_to = dat1;
 		}
+		console.log(date_start, date_to);
 		filterGrid(rowsArrayStart, date_start, date_to);
 	});
 

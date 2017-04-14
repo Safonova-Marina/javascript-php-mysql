@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>Form</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" class="href">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" class="href">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+
+</head>
+<body>
+	
+	<div class="container">
+		<div class="page-header col-sm-6 bg-success text-center">
+			<h1>Fill the form, please</h1>
+		</div>
+
+		<div class="form-group text-danger col-sm-12" id="err_mes">
+			<p></p>
+		</div>
+
+		<form class="form-horizontal" name="form" id="form">
+
+			<div class="form-group">
+				<label for="inputUserName" class="col-sm-2 control-label">User Name (min 3 symbols)*:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="inputUserName" name="inputUserName" placeholder="Enter User Name" required>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputName" class="col-sm-2 control-label">Name (min 3 symbols)*:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter Name" required />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputEmail" class="col-sm-2 control-label">Email*:</label>
+				<div class="col-sm-4">
+					<input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" required />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputText" class="col-sm-2 control-label">Comment (min 20 symbols):</label>
+				<div class="col-sm-4">
+					<textarea id="inputText" class="form-control" name="inputText" minlength="20" rows="3"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputFile" class="col-sm-2 control-label">Choose the file:</label>
+				<div class="col-sm-4">
+					<input type="file" id="inputFile" name="inputFile">
+				</div>			
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-4">
+					<button type="button" class="btn btn-primary" name="inputSub" onclick="checkLog()">Sign in</button>
+				</div>
+			</div>
+
+		</form>
+
+	</div>
+
+	<script type="text/javascript">
+		function checkLog(){
+			var formData = new FormData($('#form')[0]);
+			$.ajax({
+				url: "app.php",
+				type: 'post',
+				processData: false,
+				contentType: false,
+				data: formData,
+			    success: function(res) {
+			    	var res_pars = JSON.parse(res);
+			    	if (res_pars['er_mes'] != null) {
+			    		$("#err_mes p").html(res_pars['er_mes']);
+			    	}
+			    	if (res_pars['suc']) {
+			    		$("#err_mes p").html('The data was successfully sent');
+			    		$("#form")[0].reset();
+			    	}	
+			    }//success
+			});//ajax
+		}
+	</script>
+</body>
+</html>
